@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+/* ============================================
+   TrustBook — Custom Theme Layer
+   ============================================
+   Brand mapping (used via standard Tailwind classes):
+     Brand    → indigo-*
+     Credit   → emerald-*
+     Debit    → rose-*
+     Accent   → amber-*
+     Neutral  → slate-*
+   ============================================ */
+
+/* Base resets */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f1f5f9;
+  color: #1e293b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utility: hide scrollbar */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* Glass morphism utility */
+.glass {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
