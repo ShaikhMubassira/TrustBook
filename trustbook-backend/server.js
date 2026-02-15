@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 });
 
 // Health check route for cron jobs (prevents server sleep on free tier)
-app.get('/health', (req, res) => {
+app.get('/api/transactions', (req, res) => {
     res.status(200).send('Server is awake!');
 });
 
