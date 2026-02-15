@@ -13,8 +13,9 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:3000',  // Local development
   'http://localhost:5173',  // Vite dev server
-  process.env.FRONTEND_URL, // Production frontend
-];
+  'https://trustbook-kwdhahpmi-mubassira-shaikhs-projects.vercel.app', // Production frontend
+  process.env.FRONTEND_URL, // Production frontend from env (from Render)
+].filter(Boolean); // Remove undefined values
 
 const corsOptions = {
   origin: (origin, callback) => {
