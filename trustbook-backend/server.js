@@ -62,6 +62,11 @@ app.get('/', (req, res) => {
     res.send('TrustBook API is running...');
 });
 
+// Health check route for cron jobs (prevents server sleep on free tier)
+app.get('/health', (req, res) => {
+    res.status(200).send('Server is awake!');
+});
+
 // 7. Start the Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
