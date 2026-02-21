@@ -7,7 +7,7 @@ A modern, full-stack web application for managing personal finances with ease. T
 ## 🎯 Project Overview
 
 TrustBook is a comprehensive financial management platform designed to help individuals:
-- **Manage multiple bank accounts** with real-time balance tracking
+- **Manage multiple accounts** with real-time balance tracking
 - **Track transactions** and categorize spending patterns
 - **Generate financial reports** and export statements
 - **Secure authentication** with JWT tokens
