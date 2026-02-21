@@ -6,7 +6,7 @@ import {
 } from 'react-icons/fi';
 import {
   fetchAccountStatement, fetchAccountDetail, addTransaction,
-  deleteTransaction, getExportPDFUrl, getExportExcelUrl,
+  deleteTransaction, exportPDF, exportExcel,
 } from '../services/api';
 import { formatCurrency, formatDate, getMonthName } from '../utils/helpers';
 import toast from 'react-hot-toast';
@@ -154,26 +154,22 @@ const AccountDetail = ({ accountId, onBack }) => {
     } finally { setDeleting(null); }
   };
 
-  const handleExport = (type) => {
-    const token = localStorage.getItem('tb_token');
-    const url = type === 'pdf'
-      ? getExportPDFUrl(accountId, year, month)
-      : getExportExcelUrl(accountId, year, month);
-    // Download via hidden link with auth header
-    fetch(url, { headers: { Authorization: `Bearer ${token}` } })
-      .then(res => {
-        if (!res.ok) throw new Error('Export failed');
-        return res.blob();
-      })
-      .then(blob => {
-        const a = document.createElement('a');
-        a.href = URL.createObjectURL(blob);
-        a.download = `TrustBook_${account?.partyName || 'statement'}_${getMonthName(month)}_${year}.${type === 'pdf' ? 'pdf' : 'xlsx'}`;
-        a.click();
-        URL.revokeObjectURL(a.href);
-        toast.success(`${type.toUpperCase()} downloaded!`);
-      })
-      .catch(() => toast.error('Export failed'));
+  const handleExport = async (type) => {
+    try {
+      const response = type === 'pdf'
+        ? await exportPDF(accountId, year, month)
+        : await exportExcel(accountId, year, month);
+      
+      const blob = response.data;
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `TrustBook_${account?.partyName || 'statement'}_${getMonthName(month)}_${year}.${type === 'pdf' ? 'pdf' : 'xlsx'}`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      toast.success(`${type.toUpperCase()} downloaded!`);
+    } catch (err) {
+      toast.error('Export failed: ' + (err.response?.data?.message || err.message));
+    }
   };
 
   const filteredTxns = searchQuery.trim()

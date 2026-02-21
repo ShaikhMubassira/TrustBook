@@ -62,9 +62,10 @@ export const searchTransactions = (query) =>
   API.get(`/transactions/search?q=${encodeURIComponent(query)}`);
 
 // ─── Export ──────────────────────────────────
-export const getExportPDFUrl = (accountId, year, month) =>
-  `/api/export/pdf/${accountId}/${year}/${month}`;
-export const getExportExcelUrl = (accountId, year, month) =>
-  `/api/export/excel/${accountId}/${year}/${month}`;
+export const exportPDF = (accountId, year, month) => 
+  API.get(`/export/pdf/${accountId}/${year}/${month}`, { responseType: 'blob' });
+
+export const exportExcel = (accountId, year, month) =>
+  API.get(`/export/excel/${accountId}/${year}/${month}`, { responseType: 'blob' });
 
 export default API;
